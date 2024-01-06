@@ -1,6 +1,9 @@
 import csv
 from typing import List
 import sys
+import json
+
+from rich import print_json
 
 from options import OutputOption
 
@@ -12,3 +15,6 @@ def print_beauty(list_of_dict: List[dict], output: OutputOption):
 
         writer.writeheader()
         writer.writerows(list_of_dict)
+
+    elif output == OutputOption.json:
+        print_json(json.dumps(list_of_dict))
