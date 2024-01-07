@@ -24,11 +24,14 @@ def print_beauty(list_of_dict: List[dict], output: OutputOption):
     elif output == OutputOption.table:
         table = Table()
         headers = list_of_dict[0].keys()
+        table.add_column("")
         for h in headers:
             table.add_column(str(h))
 
         for repo in list_of_dict:
-            table.add_row(*[str(r) for r in repo.values()])
+            table.add_row(
+                *[str(list_of_dict.index(repo) + 1)] + [str(r) for r in repo.values()]
+            )
 
         console = Console()
         console.print(table)
