@@ -6,6 +6,7 @@ import json
 from rich import print_json
 from rich.console import Console
 from rich.table import Table
+import jmespath
 
 from options import OutputOption
 
@@ -35,3 +36,20 @@ def print_beauty(list_of_dict: List[dict], output: OutputOption):
 
         console = Console()
         console.print(table)
+
+
+def sort_by_key(list_of_dict, key_list, reverse=False):
+    # key_list = ['stars', 'forks']
+    key_list.reverse()
+    # key_list = ['forks', 'stars']
+
+    expr = ""
+    for key in key_list:
+        if not expr:
+            expr = f"sort_by(@, &{key})"
+        else:
+            expr = f"sort_by({expr}, &{key})"
+
+    if reverse:
+        expr = f"{expr}.reverse(@)"
+    return jmespath.search(expr, list_of_dict)
