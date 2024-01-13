@@ -8,10 +8,17 @@ from githubctl.options import OutputOption
 user_app = typer.Typer()
 
 
-@user_app.command(name="profile", help="list user profile")
+@user_app.command(name="profile")
 def profile(
     user: str = typer.Option(..., "--user", "-u", help="github user name"),
 ):
+    """
+    get user profile
+
+    EXAMPLE
+
+    githubctl user profile -u haoel
+    """
     github_api = GitHubAPI()
     repo = github_api.get_all_repositories_for_user(username=user)
     followers = github_api.list_followers_of_user(username=user)

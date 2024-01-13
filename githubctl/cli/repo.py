@@ -8,7 +8,7 @@ from githubctl.utils import print_beauty, sort_by_key
 repo_app = typer.Typer()
 
 
-@repo_app.command(name="list", help="list user repository")
+@repo_app.command(name="list")
 def list_repos(
     user: str = typer.Option(..., "--user", "-u", help="github user name"),
     output: OutputOption = typer.Option(
@@ -17,6 +17,13 @@ def list_repos(
     query: str = typer.Option(None, "--query", "-q", help="query with jmespath"),
     sort_by: str = typer.Option(None, "--sort-by", "-s", help="sort by key"),
 ):
+    """
+    list all the repositories for a user.
+
+    EXAMPLE
+
+    githubctl repo list -u haoel --output=table --query="[?language=='Go']" --sort-by=~stars
+    """
     github_api = GitHubAPI()
     repo = github_api.get_all_repositories_for_user(username=user)
     if query:
@@ -31,11 +38,18 @@ def list_repos(
     print_beauty(list_of_dict=repo, output=output)
 
 
-@repo_app.command(name="delete", help="delete user repository")
+@repo_app.command(name="delete")
 def delete_repo(
     user: str = typer.Option(..., "--user", "-u", help="github user name"),
     repo: str = typer.Option(..., "--repo", "-r", help="repo name"),
 ):
+    """
+    delete a user own repository
+
+    EXAMPLE
+
+    githubctl repo delete -u test -r test
+    """
     github_api = GitHubAPI()
     if github_api.delete_repository_for_user(username=user, repo_name=repo):
         print(f"repository {repo} was deleted!")

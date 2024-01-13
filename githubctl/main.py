@@ -13,8 +13,8 @@ if os.path.isfile(".env"):
 
 app = typer.Typer()
 
-app.add_typer(repo_app, name="repo")
-app.add_typer(user_app, name="user")
+app.add_typer(repo_app, name="repo", help="repository commands")
+app.add_typer(user_app, name="user", help="user commands")
 
 if __name__ == "__main__":
     app()
