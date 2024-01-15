@@ -1,9 +1,13 @@
 [tool.poetry]
 name = "githubctl"
-version = "0.1.0"
+version = "0.1.6"
 description = ""
 authors = ["Peng Xiao <xiaoquwl@gmail.com>"]
 readme = "README.md"
+
+[tool.poetry.scripts]
+githubctl = "githubctl.main:app"
+
 
 [tool.poetry.dependencies]
 python = "^3.10"

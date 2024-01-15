@@ -8,7 +8,7 @@ from rich.console import Console
 from rich.table import Table
 import jmespath
 
-from options import OutputOption
+from githubctl.options import OutputOption
 
 
 def print_beauty(list_of_dict: List[dict], output: OutputOption):
